@@ -59,6 +59,10 @@ export class ControlPanelComponent {
     this.simService.toggleIsl(name, other);
   }
 
+  trackBySatName(_: number, sat: any): string {
+    return sat.name;
+  }
+
   isIslBlocked(name: string, other: string): boolean {
     const link = this.state()?.islLinks.find(l => 
       (l.a === name && l.b === other) || (l.a === other && l.b === name)

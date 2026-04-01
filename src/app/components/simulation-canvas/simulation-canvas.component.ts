@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, inject, signal, effect, HostListener } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, effect, afterNextRender, HostListener } from '@angular/core';
 import { SimulationService } from '../../services/simulation.service';
 import { SAT_COLORS, SimulationState, OrbitalParam, Satellite } from '../../models/simulation.model';
 
@@ -8,23 +8,23 @@ import { SAT_COLORS, SimulationState, OrbitalParam, Satellite } from '../../mode
   templateUrl: './simulation-canvas.component.html',
   styleUrl: './simulation-canvas.component.css'
 })
-export class SimulationCanvasComponent implements AfterViewInit {
+export class SimulationCanvasComponent {
   @ViewChild('orbitCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
   private simService = inject(SimulationService);
   private ctx!: CanvasRenderingContext2D;
 
   constructor() {
+    afterNextRender(() => {
+      this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
+      this.resizeCanvas();
+    });
+
     effect(() => {
       const state = this.simService.state();
       if (state && this.ctx) {
         this.drawScene(state);
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
-    this.resizeCanvas();
   }
 
   @HostListener('window:resize')

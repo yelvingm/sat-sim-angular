@@ -34,7 +34,7 @@
   </div>
 
   <mat-accordion multi>
-    <mat-expansion-panel *ngFor="let sat of state()?.satellites" [expanded]="sat.gnssDenied">
+    <mat-expansion-panel *ngFor="let sat of state()?.satellites; trackBy: trackBySatName">
       <mat-expansion-panel-header>
         <mat-panel-title [style.color]="sat.color">
           {{ sat.name.toUpperCase() }}

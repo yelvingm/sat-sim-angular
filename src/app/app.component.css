@@ -1,0 +1,42 @@
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  gap: 8px;
+}
+
+.toolbar-title {
+  margin-left: 8px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.sim-time {
+  font-family: monospace;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.sidenav-container {
+  height: 100vh;
+  margin-top: 64px;
+  background: #0a1628;
+}
+
+.control-sidenav {
+  width: 300px;
+  background: rgba(14, 25, 44, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+  background: #0a1628;
+}
