@@ -1,0 +1,74 @@
+<div class="control-panel mat-elevation-z2">
+  <div class="header">
+    <div class="title">CONSTELLATION CONFIG</div>
+    <div class="sim-controls">
+      <button mat-flat-button color="primary" (click)="togglePlay()">
+        <mat-icon>{{ state()?.running ? 'pause' : 'play_arrow' }}</mat-icon>
+        {{ state()?.running ? 'PAUSE' : 'START' }}
+      </button>
+      <button mat-stroked-button color="warn" (click)="reset()">
+        <mat-icon>refresh</mat-icon> RESET
+      </button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">GLOBAL SETTINGS</div>
+    <div class="row">
+      <label>SAT COUNT</label>
+      <mat-button-toggle-group [value]="state()?.numSats" (change)="setSatCount($event)">
+        <mat-button-toggle [value]="3">3</mat-button-toggle>
+        <mat-button-toggle [value]="4">4</mat-button-toggle>
+        <mat-button-toggle [value]="5">5</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="row">
+      <label>SPEED</label>
+      <mat-button-toggle-group [value]="state()?.speed" (change)="setSpeed($event)">
+        <mat-button-toggle [value]="1">×1</mat-button-toggle>
+        <mat-button-toggle [value]="5">×5</mat-button-toggle>
+        <mat-button-toggle [value]="20">×20</mat-button-toggle>
+        <mat-button-toggle [value]="60">×60</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+
+  <mat-accordion multi>
+    <mat-expansion-panel *ngFor="let sat of state()?.satellites" [expanded]="sat.gnssDenied">
+      <mat-expansion-panel-header>
+        <mat-panel-title [style.color]="sat.color">
+          {{ sat.name.toUpperCase() }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ sat.status }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="sat-config">
+        <mat-slide-toggle [checked]="sat.gnssDenied" (change)="toggleGnss(sat.name)">
+          GNSS DENIAL
+        </mat-slide-toggle>
+
+        <div class="drift-control" *ngIf="sat.gnssDenied">
+          <label>CLOCK DRIFT: {{ sat.driftRate }} m/hr</label>
+          <mat-slider min="0.5" max="30" step="0.1">
+            <input matSliderThumb [value]="sat.driftRate" (input)="updateDrift(sat.name, $event)">
+          </mat-slider>
+        </div>
+
+        <div class="isl-blackouts">
+          <div class="label">ISL BLACKOUTS</div>
+          <div class="isl-grid">
+            <ng-container *ngFor="let other of state()?.satellites">
+              <mat-slide-toggle *ngIf="other.name !== sat.name"
+                 [checked]="isIslBlocked(sat.name, other.name)"
+                 (change)="toggleIsl(sat.name, other.name)">
+                → {{ other.name }}
+              </mat-slide-toggle>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

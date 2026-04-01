@@ -1,0 +1,102 @@
+.control-panel {
+  padding: 16px;
+  background: rgba(14, 25, 44, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  height: 100%;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #00d4ff;
+  margin-bottom: 12px;
+}
+
+.sim-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.sim-controls button {
+  flex: 1;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.row label {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+mat-accordion {
+  background: transparent;
+}
+
+mat-expansion-panel {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 8px !important;
+}
+
+.sat-config {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.drift-control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drift-control label {
+  font-size: 10px;
+  color: #ff4466;
+}
+
+.isl-blackouts .label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 8px;
+}
+
+.isl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 16px 16px 16px !important;
+}
+
+::ng-deep .mat-mdc-button-toggle-label-content {
+  line-height: 24px !important;
+  font-size: 10px !important;
+}
