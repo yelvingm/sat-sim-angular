@@ -1,16 +1,14 @@
 export interface Satellite {
   name: string;
   color: string;
-  alt: number;
-  inc: number;
-  raan: number;
-  period: number;
   velocity: number;
   trueAngle: number;
   estAngle: number;
-  clockError: number;
-  posError: number;
-  maxStale: number;
+  thetaError: number;   // rad, signed (θ_est − θ_true)
+  clockError: number;   // m – GNSS time-drift contribution
+  islError: number;     // m – ISL dead-reckoning contribution
+  posError: number;     // m – total |θ_err| · r
+  maxStale: number;     // s – continuous ISL blockout duration
   driftRate: number;
   gnssDenied: boolean;
   anyIslBlocked: boolean;
@@ -28,12 +26,12 @@ export interface ISLLink {
   blocked: boolean;
 }
 
-export interface OrbitalParam {
-  name: string;
-  alt: number;
-  inc: number;
-  raan: number;
-  period: number;
+export interface OrbitInfo {
+  alt: number;      // km
+  inc: number;      // deg
+  raan: number;     // deg
+  period: number;   // s
+  velocity: number; // km/s
 }
 
 export interface SimulationState {
@@ -46,21 +44,18 @@ export interface SimulationState {
   denialLines: DenialLine[];
   satellites: Satellite[];
   islLinks: ISLLink[];
-  staleEstimates: any[];
-  errorHistory: any[];
-  orbitalParams: OrbitalParam[];
+  orbitInfo: OrbitInfo;
+  errorHistory: {
+    t: number;
+    errors: Record<string, number>;
+    peerErrors?: Record<string, Record<string, number>>;
+  }[];
 }
 
 export const SAT_COLORS: Record<string, string> = {
-  Alpha: "#00d4ff",
-  Bravo: "#39ff6e",
-  Charlie: "#ff9f1c",
-  Delta: "#e040fb",
-  Echo: "#ff4466",
+  Alpha:   '#00d4ff',
+  Bravo:   '#39ff6e',
+  Charlie: '#ff9f1c',
+  Delta:   '#e040fb',
+  Echo:    '#ff4466',
 };
-
-export function orbitalVelocity(altKm: number): number {
-  const GM = 3.986e14;
-  const r = (6371 + altKm) * 1e3;
-  return Math.sqrt(GM / r) / 1e3;
-}

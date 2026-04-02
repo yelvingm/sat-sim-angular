@@ -3,6 +3,13 @@
   <span class="toolbar-title">Satellite Constellation Simulator</span>
   <span class="toolbar-spacer"></span>
   @if (state()) {
+    <mat-chip-set class="status-chips">
+      <mat-chip [class.chip-live]="state()!.running" [class.chip-paused]="!state()!.running" disableRipple>
+        <mat-icon>{{ state()!.running ? 'podcasts' : 'pause_circle' }}</mat-icon>
+        {{ state()!.running ? 'LIVE' : 'PAUSED' }}
+      </mat-chip>
+    </mat-chip-set>
+    <mat-divider vertical class="toolbar-divider"></mat-divider>
     <span class="sim-time">{{ state()!.timeStr }}</span>
   }
 </mat-toolbar>
@@ -13,7 +20,14 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="main-content">
-    <app-simulation-canvas />
-    <app-telemetry-panel />
+    <mat-card class="canvas-card" appearance="outlined">
+      <app-simulation-canvas />
+    </mat-card>
+
+    <div class="bottom-row">
+      <mat-card class="bottom-card" appearance="outlined">
+        <app-telemetry-panel />
+      </mat-card>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

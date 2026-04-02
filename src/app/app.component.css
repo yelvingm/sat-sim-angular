@@ -15,9 +15,42 @@
   flex: 1;
 }
 
+.toolbar-divider {
+  height: 24px;
+  margin: 0 12px;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.status-chips {
+  display: flex;
+}
+
+.status-chips .chip-live {
+  background: rgba(57, 255, 110, 0.15) !important;
+  color: #39ff6e !important;
+  border: 1px solid rgba(57, 255, 110, 0.4) !important;
+}
+
+.status-chips .chip-live mat-icon {
+  color: #39ff6e !important;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.status-chips .chip-paused {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
 .sim-time {
   font-family: monospace;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
   opacity: 0.85;
 }
 
@@ -34,9 +67,35 @@
 }
 
 .main-content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr 420px;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
+  padding: 10px;
+  gap: 10px;
+  box-sizing: border-box;
   background: #0a1628;
+}
+
+.canvas-card {
+  overflow: hidden;
+  padding: 0 !important;
+  background: transparent !important;
+  border-color: rgba(0, 180, 255, 0.18) !important;
+  min-height: 0;
+}
+
+.bottom-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.bottom-card {
+  overflow: hidden;
+  padding: 0 !important;
+  background: rgba(14, 25, 44, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }

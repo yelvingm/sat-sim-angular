@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { SimulationService } from '../../services/simulation.service';
+import { SatErrorPlotComponent } from '../sat-error-plot/sat-error-plot.component';
 
 @Component({
   selector: 'app-telemetry-panel',
@@ -14,7 +15,8 @@ import { SimulationService } from '../../services/simulation.service';
     MatCardModule,
     MatDividerModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    SatErrorPlotComponent,
   ],
   templateUrl: './telemetry-panel.component.html',
   styleUrl: './telemetry-panel.component.css'

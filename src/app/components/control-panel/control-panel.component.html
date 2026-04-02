@@ -59,7 +59,7 @@
         <div class="isl-blackouts">
           <div class="label">ISL BLACKOUTS</div>
           <div class="isl-grid">
-            <ng-container *ngFor="let other of state()?.satellites">
+            <ng-container *ngFor="let other of state()?.satellites; trackBy: trackBySatName">
               <mat-slide-toggle *ngIf="other.name !== sat.name"
                  [checked]="isIslBlocked(sat.name, other.name)"
                  (change)="toggleIsl(sat.name, other.name)">
